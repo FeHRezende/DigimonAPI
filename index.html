@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digimon Analyzer</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>Digimon Analyzer</h1>
+        </header>
+        <main>
+            <div class="content">
+                <nav class="modules">
+                    <div class="module card" v-for="(digimon, d) in digimons">
+                        <h3>{{ digimons[d].name }}</h3>
+                        <ul>
+                            <li><img :src = " digimons[d].img "></li>
+                            <li><b>Level:</b> {{ digimons[d].level }}</li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </main>
+        <footer>
+            <div>Fernanda Rezende | Web Developer | 2020 </div>
+        </footer>
+    </div>
+</body>
+
+<script>
+    const vm = new Vue({
+        el: "#app",
+        data: {
+            digimons: null
+        },
+        created(){
+            axios.get('https://digimon-api.vercel.app/api/digimon')
+                    .then(response => (this.digimons = response.data))
+        }
+
+    })
+</script>
+
+</html>
